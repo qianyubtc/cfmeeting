@@ -31,6 +31,6 @@
     "site:dev": "npx --yes serve site -l 4173"
   },
   "devDependencies": {
-    "sharp": "^0.35.4"
+    "sharp": "^0.32.6"
   }
 }
