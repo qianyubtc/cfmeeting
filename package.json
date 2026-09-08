@@ -1,0 +1,36 @@
+{
+  "name": "cfmeeting",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CFMeeting — open-source video meeting demo built on Cloudflare RealtimeKit (community derivative of the official Cloudflare Realtime demo).",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "workspaces": [
+    "apps/web",
+    "apps/server",
+    "apps/desktop",
+    "apps/android"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w apps/web",
+    "dev:server": "npm run dev -w apps/server",
+    "build": "npm run build -w apps/web",
+    "build:packaged": "npm run build:packaged -w apps/web",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "deploy": "npm run build -w apps/web && npm run deploy -w apps/server",
+    "setup:presets": "npm run setup:presets -w apps/server",
+    "desktop:dev": "npm run dev -w apps/desktop",
+    "desktop:build": "npm run build:packaged -w apps/web && npm run dist -w apps/desktop",
+    "android:sync": "npm run build:packaged -w apps/web && npm run sync -w apps/android",
+    "android:build": "npm run android:sync && npm run build:apk -w apps/android",
+    "icons": "node scripts/gen-icons.mjs && npm run assets -w apps/android",
+    "preview": "node scripts/preview.mjs",
+    "build:site": "node scripts/build-site.mjs",
+    "site:dev": "npx --yes serve site -l 4173"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.4"
+  }
+}

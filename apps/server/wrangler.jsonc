@@ -1,0 +1,40 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cfmeeting",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  // The web app build (apps/web/dist) is served as static assets by the same Worker.
+  // Requests under /api/* always hit the Worker; everything else is served from assets
+  // with SPA fallback so deep links like /m/123456789 work.
+  "assets": {
+    "directory": "../web/dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    // Public, non-secret configuration. Secrets go in `.dev.vars` (local) or `wrangler secret put` (prod).
+    "APP_NAME": "CFMeeting",
+    // "true" = relay create/join calls to the public Cloudflare demo API (no Cloudflare account needed,
+    // same caveats as the app's default mode). "false" = use your own RealtimeKit credentials (.dev.vars / secrets).
+    "DEMO_PROXY": "true",
+    // Preset names used for the meeting creator (host) and for everyone else.
+    // Run `npm run setup:presets` once to create these two presets in your RealtimeKit app,
+    // or point these at presets you created in the Cloudflare dashboard.
+    "RTK_HOST_PRESET": "cfmeeting_host",
+    "RTK_PARTICIPANT_PRESET": "cfmeeting_participant",
+    // Comma-separated list of allowed browser origins for the API, or "*" (desktop/Android
+    // builds call the API cross-origin, so "*" is the practical default for a demo).
+    "ALLOWED_ORIGINS": "*",
+    // Allow the "record on start" option in the UI. Recording is billed separately by Cloudflare.
+    "ALLOW_RECORDING": "false",
+    // Seconds a session stays alive after the last participant leaves.
+    "SESSION_KEEP_ALIVE_SECS": "60"
+  }
+  // Optional: short 9-digit meeting codes (会议号) need a KV namespace.
+  // 1) npx wrangler kv namespace create MEETINGS
+  // 2) paste the returned id below and uncomment:
+  // ,"kv_namespaces": [{ "binding": "MEETINGS", "id": "<your-kv-namespace-id>" }]
+}

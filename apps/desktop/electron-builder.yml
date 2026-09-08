@@ -1,0 +1,46 @@
+appId: dev.cfmeeting.desktop
+productName: CFMeeting
+copyright: "Copyright © 2026 CFMeeting contributors. Not affiliated with Cloudflare, Inc."
+directories:
+  buildResources: build
+  output: release
+files:
+  - dist/**
+  - renderer/**
+  - package.json
+asar: true
+npmRebuild: false
+publish: null
+mac:
+  category: public.app-category.productivity
+  target:
+    - target: dmg
+      arch: [arm64, x64]
+    - target: zip
+      arch: [arm64, x64]
+  icon: build/icon.png
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  entitlements: build/entitlements.mac.plist
+  entitlementsInherit: build/entitlements.mac.plist
+  notarize: false
+  extendInfo:
+    NSCameraUsageDescription: "CFMeeting 需要使用摄像头进行视频会议。CFMeeting needs the camera for video meetings."
+    NSMicrophoneUsageDescription: "CFMeeting 需要使用麦克风进行会议通话。CFMeeting needs the microphone for meetings."
+dmg:
+  artifactName: "${productName}-${version}-mac-${arch}.${ext}"
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  icon: build/icon.png
+  artifactName: "${productName}-${version}-win-${arch}.${ext}"
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  perMachine: false
+  createDesktopShortcut: true
+linux:
+  target: [AppImage]
+  category: Network
+  icon: build/icon.png

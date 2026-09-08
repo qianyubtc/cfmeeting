@@ -1,0 +1,24 @@
+{
+  "name": "@cfmeeting/android",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CFMeeting Android shell (Capacitor)",
+  "scripts": {
+    "add": "cap add android",
+    "sync": "cap sync android",
+    "open": "cap open android",
+    "assets": "capacitor-assets generate --android --iconBackgroundColor '#070a12' --iconBackgroundColorDark '#070a12' --splashBackgroundColor '#eef1f6' --splashBackgroundColorDark '#0b0b0f'",
+    "build:apk": "cd android && ./gradlew assembleDebug --no-daemon",
+    "build:release": "cd android && ./gradlew assembleRelease --no-daemon"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.6.9",
+    "@capacitor/core": "^7.6.9",
+    "@capacitor/app": "^7.1.2",
+    "@capacitor/status-bar": "^7.0.6"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^7.6.9"
+  }
+}

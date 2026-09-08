@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>CFMeeting · 开源视频会议</title>
+  <meta name="description" content="CFMeeting：免费、无需账号、无需服务器的开源视频会议。macOS / Windows / Android 客户端与网页版，基于 Cloudflare RealtimeKit 官方 Demo 的社区二创。" />
+  <meta name="theme-color" content="#eef1f6" />
+  <meta property="og:title" content="CFMeeting · 开源视频会议" />
+  <meta property="og:description" content="免费、无需账号、无需服务器。macOS / Windows / Android / 网页。" />
+  <meta property="og:image" content="img/home-desktop.png" />
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="config.js"></script>
+</head>
+<body>
+  <div class="orbs" aria-hidden="true"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span><span class="orb o4"></span></div>
+
+  <header class="nav">
+    <a class="brand" href="#top"><img src="icons/icon-192.png" alt="" width="30" height="30" /><span>CFMeeting</span><em>社区版</em></a>
+    <nav class="nav-links">
+      <a href="#download">下载</a>
+      <a href="#features">功能</a>
+      <a href="#screens">截图</a>
+      <a href="#how">原理</a>
+      <a href="#disclaimer">声明</a>
+      <a class="nav-gh" data-repo-link href="#" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <img class="hero-icon" src="icons/icon-192.png" alt="CFMeeting" width="96" height="96" />
+      <span class="pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg> 开源 · 基于 Cloudflare RealtimeKit 官方 Demo 的社区二创</span>
+      <h1>开会，像发消息一样简单</h1>
+      <p class="lead">免费、无需账号、无需服务器。macOS、Windows、Android 客户端与网页版共用同一个会议室。</p>
+      <div class="cta">
+        <a class="btn btn-primary" id="cta-primary" href="#download"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span id="cta-label">下载</span></a>
+        <a class="btn btn-gray" data-web-link href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg><span>打开网页版</span></a>
+      </div>
+      <p class="version" id="version-line">正在获取最新版本…</p>
+      <div class="hero-shot"><img src="img/home-desktop.png" alt="CFMeeting 首页" loading="eager" /></div>
+    </section>
+
+    <div class="ad-slot" data-ad="hero" hidden></div>
+
+    <section id="download" class="section">
+      <h2>下载</h2>
+      <p class="muted">安装包来自 GitHub Releases。桌面包未签名：macOS 首次打开请右键“打开”，Windows 请在 SmartScreen 中选择“仍要运行”。</p>
+      <div class="grid dl-grid">
+        <a class="card dl" data-dl="mac-arm64" href="#"><span class="dl-icon"></span><b>macOS</b><small>Apple 芯片 · .dmg</small><span class="dl-meta"></span></a>
+        <a class="card dl" data-dl="mac-x64" href="#"><span class="dl-icon"></span><b>macOS</b><small>Intel 芯片 · .dmg</small><span class="dl-meta"></span></a>
+        <a class="card dl" data-dl="win" href="#"><span class="dl-icon"></span><b>Windows</b><small>64 位 · 安装包 .exe</small><span class="dl-meta"></span></a>
+        <a class="card dl" data-dl="android" href="#"><span class="dl-icon"></span><b>Android</b><small>APK · 需允许安装未知来源</small><span class="dl-meta"></span></a>
+        <a class="card dl" data-web-link href="#"><span class="dl-icon"></span><b>iOS / 网页</b><small>Safari 打开 → 分享 → 添加到主屏幕</small><span class="dl-meta">无需安装</span></a>
+      </div>
+      <p class="muted small" id="all-releases"></p>
+      <div class="ad-slot ad-slot-inline" data-ad="download" hidden></div>
+    </section>
+
+    <section id="features" class="section">
+      <h2>功能</h2>
+      <div class="grid feat-grid">
+        <div class="card"><b>零门槛</b><small>不注册、不配置、不用自己的服务器，输入名字就能开会。</small></div>
+        <div class="card"><b>全平台一个会议室</b><small>桌面、安卓、iOS 轻应用、网页，用同一个会议号互通。</small></div>
+        <div class="card"><b>完整会议能力</b><small>宫格视图、共享屏幕、聊天、参会者管理、投票、等候室、分组讨论、网络研讨会。</small></div>
+        <div class="card"><b>邀请很方便</b><small>会议号、链接、二维码、系统分享；任何人用浏览器点链接就能进。</small></div>
+        <div class="card"><b>中文界面</b><small>包含会议内所有提示的简体中文语言包，随时切英文。</small></div>
+        <div class="card"><b>开源</b><small>MIT 协议，所有代码公开，欢迎二次开发。</small></div>
+      </div>
+    </section>
+
+    <section id="screens" class="section">
+      <h2>截图</h2>
+      <div class="shots">
+        <figure><img src="img/join-sheet.png" alt="加入会议" loading="lazy" /><figcaption>加入会议</figcaption></figure>
+        <figure><img src="img/setup-desktop.png" alt="会前准备" loading="lazy" /><figcaption>会前准备</figcaption></figure>
+        <figure><img src="img/room-desktop.png" alt="会议中" loading="lazy" /><figcaption>会议中</figcaption></figure>
+        <figure class="phone"><img src="img/create-mobile.png" alt="手机端发起会议" loading="lazy" /><figcaption>手机端</figcaption></figure>
+        <figure class="phone"><img src="img/room-mobile.png" alt="手机端会议中" loading="lazy" /><figcaption>手机端会议中</figcaption></figure>
+        <figure><img src="img/home-dark.png" alt="深色模式" loading="lazy" /><figcaption>深色模式</figcaption></figure>
+      </div>
+    </section>
+
+    <section id="how" class="section">
+      <h2>它是怎么做到“没有后端”的</h2>
+      <div class="card prose">
+        <p>会议能力来自 <strong>Cloudflare RealtimeKit</strong>。桌面版和安卓版直接调用 Cloudflare 公开的演示接口创建 / 加入会议，会议界面在本地用 RealtimeKit UI Kit 的组件拼装并汉化。</p>
+        <p>网页版是纯静态文件：受浏览器跨域限制，加入会议时会把官方会议页面内嵌进来，创建会议则在官方页面完成后把链接粘贴回来生成邀请。</p>
+        <p>因此整个项目没有自己的服务器，也不需要任何账号。代价是：会议运行在 Cloudflare 的演示账号下，请只用于学习、测试和演示。</p>
+      </div>
+    </section>
+
+    <section id="disclaimer" class="section">
+      <h2>声明</h2>
+      <div class="card notice">
+        <p><strong>CFMeeting 不是 Cloudflare 官方产品</strong>，与 Cloudflare, Inc. 没有隶属、合作或背书关系；它是社区对 Cloudflare RealtimeKit 官方 Demo（demo.realtime.cloudflare.com）的二次创作。</p>
+        <p>默认模式下会议由 Cloudflare 公开的演示服务提供，<strong>没有任何隐私、可用性或数据保留承诺</strong>，Cloudflare 可能随时限流、调整或关闭该演示服务。请勿用于敏感、商业或重要的会议。</p>
+        <p>Cloudflare、RealtimeKit 是 Cloudflare, Inc. 的商标；“腾讯会议”是腾讯公司的商标，仅用于描述产品形态类比，本项目与腾讯无关。会议能力与会议内界面来自 Cloudflare RealtimeKit SDK / UI Kit（Apache-2.0）；本项目自身代码以 MIT 协议开源。</p>
+      </div>
+    </section>
+    <div class="ad-slot" data-ad="footer" hidden></div>
+  </main>
+
+  <footer class="foot">
+    <span>CFMeeting · 社区开源项目 · 非 Cloudflare 官方产品</span>
+    <span class="foot-links"><a data-repo-link href="#" target="_blank" rel="noopener">GitHub</a><a data-repo-link data-suffix="/blob/main/NOTICE.md" href="#" target="_blank" rel="noopener">第三方声明</a><a data-repo-link data-suffix="/blob/main/docs/BUILD.md" href="#" target="_blank" rel="noopener">构建文档</a></span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

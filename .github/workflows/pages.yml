@@ -1,0 +1,50 @@
+name: Web (GitHub Pages, no backend)
+
+# Publishes the static web build to GitHub Pages. Zero backend: joining embeds the official
+# Cloudflare demo page, creating happens on the official page (two-step flow in the app).
+# Enable Pages for the repo first: Settings → Pages → Source: GitHub Actions.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build (base path = /<repo>/ for project sites, / for <user>.github.io)
+        run: |
+          REPO="${GITHUB_REPOSITORY#*/}"
+          if [[ "$REPO" == *.github.io ]]; then export VITE_BASE=/; else export VITE_BASE="/$REPO/"; fi
+          echo "VITE_BASE=$VITE_BASE"
+          npm run build -w apps/web
+          cp apps/web/dist/index.html apps/web/dist/404.html   # SPA fallback for deep links like /m/<id>
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/web/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

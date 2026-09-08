@@ -1,0 +1,23 @@
+{
+  "name": "@cfmeeting/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "CFMeeting API on Cloudflare Workers (Hono). Creates RealtimeKit meetings/participants and serves the web app.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "wrangler types --include-runtime=false >/dev/null 2>&1 || true; tsc --noEmit",
+    "cf-typegen": "wrangler types",
+    "setup:presets": "node scripts/setup-presets.mjs",
+    "tail": "wrangler tail"
+  },
+  "dependencies": {
+    "hono": "^4.13.7"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260907.1",
+    "typescript": "^5.9.2",
+    "wrangler": "^4.129.0"
+  }
+}

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>共享屏幕 / Share screen</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; background: #1c1c1e; color: #eef2f7; font: 14px/1.4 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif; display: flex; flex-direction: column; height: 100vh; }
+  header { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid #3a3a3c; }
+  header h1 { font-size: 15px; margin: 0; flex: 1; }
+  .tab { background: #2c2c2e; border: 1px solid #3a3a3c; color: #eef2f7; padding: 6px 12px; border-radius: 8px; cursor: pointer; font: inherit; }
+  .tab.active { border-color: #0a84ff; background: #0a4a8f; }
+  main { flex: 1; overflow: auto; padding: 12px 16px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; align-content: start; }
+  .src { border: 2px solid transparent; border-radius: 10px; background: #2c2c2e; padding: 8px; cursor: pointer; text-align: left; color: inherit; font: inherit; display: flex; flex-direction: column; gap: 6px; }
+  .src:hover { border-color: #48484a; }
+  .src.selected { border-color: #0a84ff; }
+  .src img.thumb { width: 100%; aspect-ratio: 16/10; object-fit: contain; background: #000; border-radius: 6px; }
+  .src .name { display: flex; align-items: center; gap: 6px; font-size: 12px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .src .name img { width: 16px; height: 16px; }
+  footer { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-top: 1px solid #3a3a3c; }
+  footer label { flex: 1; display: flex; align-items: center; gap: 6px; color: #8a94a3; font-size: 13px; }
+  .btn { padding: 8px 16px; border-radius: 8px; border: 1px solid #3a3a3c; background: #2c2c2e; color: #eef2f7; font: inherit; cursor: pointer; }
+  .btn.primary { background: #0a84ff; border-color: #0a84ff; color: #fff; }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .empty { color: #8a94a3; grid-column: 1 / -1; padding: 24px; text-align: center; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>选择要共享的内容 · Choose what to share</h1>
+    <button class="tab active" data-kind="screen">整个屏幕 / Screen</button>
+    <button class="tab" data-kind="window">窗口 / Window</button>
+  </header>
+  <main id="list"><div class="empty">加载中…</div></main>
+  <footer>
+    <label id="audioWrap" hidden><input type="checkbox" id="audio" /> 同时共享系统声音 (Windows) / Share system audio</label>
+    <button class="btn" id="cancel">取消 / Cancel</button>
+    <button class="btn primary" id="share" disabled>共享 / Share</button>
+  </footer>
+  <script>
+    let all = [];
+    let kind = 'screen';
+    let selected = null;
+    const list = document.getElementById('list');
+    const shareBtn = document.getElementById('share');
+
+    function render() {
+      list.innerHTML = '';
+      const items = all.filter((s) => s.kind === kind);
+      if (!items.length) {
+        list.innerHTML = '<div class="empty">没有可共享的内容 / Nothing to share</div>';
+        return;
+      }
+      for (const s of items) {
+        const b = document.createElement('button');
+        b.className = 'src' + (selected === s.id ? ' selected' : '');
+        b.innerHTML = '<img class="thumb" alt="" /><div class="name"></div>';
+        b.querySelector('.thumb').src = s.thumbnail;
+        const name = b.querySelector('.name');
+        if (s.appIcon) { const i = document.createElement('img'); i.src = s.appIcon; name.appendChild(i); }
+        name.appendChild(document.createTextNode(s.name));
+        b.addEventListener('click', () => { selected = s.id; shareBtn.disabled = false; render(); });
+        b.addEventListener('dblclick', () => window.picker.choose(s.id, document.getElementById('audio').checked));
+        list.appendChild(b);
+      }
+    }
+
+    document.querySelectorAll('.tab').forEach((t) => t.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach((x) => x.classList.remove('active'));
+      t.classList.add('active');
+      kind = t.dataset.kind;
+      render();
+    }));
+    document.getElementById('cancel').addEventListener('click', () => window.picker.cancel());
+    shareBtn.addEventListener('click', () => { if (selected) window.picker.choose(selected, document.getElementById('audio').checked); });
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') window.picker.cancel(); });
+
+    window.picker.onSources((payload) => {
+      all = payload.sources;
+      if (payload.platform === 'win32') document.getElementById('audioWrap').hidden = false;
+      render();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+# Copy to .dev.vars for local development (never commit .dev.vars).
+# In production set the same values with:  npx wrangler secret put <NAME>
+
+# --- Cloudflare RealtimeKit (recommended: Cloudflare API) ---
+# Account ID: Cloudflare dashboard → Workers & Pages → Overview (right column), or any zone overview page.
+CF_ACCOUNT_ID=
+# API token with permission  Realtime → Realtime Admin  (https://dash.cloudflare.com/profile/api-tokens)
+CF_API_TOKEN=
+# RealtimeKit App ID: dashboard → Realtime → RealtimeKit → your app
+RTK_APP_ID=
+
+# --- Alternative: legacy RealtimeKit org credentials (api.realtime.cloudflare.com) ---
+# Only used when the three CF_* values above are empty.
+# REALTIMEKIT_ORG_ID=
+# REALTIMEKIT_API_KEY=
+
+# --- Optional hardening ---
+# Secret used to derive per-meeting host keys (any long random string). Falls back to a hash of the API token.
+# HOST_KEY_SECRET=
+# If set, creating a meeting requires this code (joining does not). Useful for public demos: every participant-minute costs money.
+# CREATE_ACCESS_CODE=

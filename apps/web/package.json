@@ -1,0 +1,36 @@
+{
+  "name": "@cfmeeting/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "CFMeeting web app / PWA (React + Cloudflare RealtimeKit UI Kit)",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "build:packaged": "tsc --noEmit && vite build --mode packaged",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@capacitor/core": "^7.6.9",
+    "@cloudflare/realtimekit": "^2.0.2",
+    "@cloudflare/realtimekit-react": "^2.0.2",
+    "@cloudflare/realtimekit-react-ui": "^2.0.2",
+    "@cloudflare/realtimekit-ui": "^2.0.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.18.3",
+    "qrcode": "^1.5.4",
+    "@capacitor/app": "^7.1.2",
+    "@capacitor/status-bar": "^7.0.6"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^5.2.0",
+    "typescript": "^5.9.2",
+    "vite": "^7.3.6",
+    "vite-plugin-pwa": "^1.3.0",
+    "@types/qrcode": "^1.5.5"
+  }
+}

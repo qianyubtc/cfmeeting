@@ -1,0 +1,25 @@
+name: Site (Cloudflare Pages, optional)
+
+# Alternative to the dashboard Git integration: deploy site/ (landing page + /app/ web app) with wrangler.
+# Secrets: CLOUDFLARE_API_TOKEN (Cloudflare Pages:Edit), CLOUDFLARE_ACCOUNT_ID. Create the Pages project once:
+#   npx wrangler pages project create cfmeeting --production-branch main
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build:site
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy site --project-name=cfmeeting
