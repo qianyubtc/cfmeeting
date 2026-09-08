@@ -12,14 +12,14 @@
     "dev": "npm run build:main && electron . --dev",
     "start": "npm run build:main && npm run prepare:renderer && electron .",
     "prepare:renderer": "node scripts/copy-renderer.mjs",
-    "dist": "npm run build:main && npm run prepare:renderer && electron-builder",
-    "dist:mac": "npm run build:main && npm run prepare:renderer && electron-builder --mac",
-    "dist:win": "npm run build:main && npm run prepare:renderer && electron-builder --win",
-    "dist:dir": "npm run build:main && npm run prepare:renderer && electron-builder --dir"
+    "dist": "npm run build:main && npm run prepare:renderer && electron-builder --publish never",
+    "dist:mac": "npm run build:main && npm run prepare:renderer && electron-builder --publish never --mac",
+    "dist:win": "npm run build:main && npm run prepare:renderer && electron-builder --publish never --win",
+    "dist:dir": "npm run build:main && npm run prepare:renderer && electron-builder --publish never --dir"
   },
   "devDependencies": {
     "@types/node": "^22.20.1",
-    "electron": "^44.2.0",
+    "electron": "44.2.0",
     "electron-builder": "^26.15.3",
     "typescript": "^5.9.2"
   }

@@ -1,4 +1,5 @@
 appId: dev.cfmeeting.desktop
+electronVersion: 44.2.0
 productName: CFMeeting
 copyright: "Copyright © 2026 CFMeeting contributors. Not affiliated with Cloudflare, Inc."
 directories:
